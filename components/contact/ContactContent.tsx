@@ -19,6 +19,8 @@ export default function ContactContent() {
   const heroRef = useRef<HTMLElement>(null);
   const cursorGlowRef = useRef<HTMLDivElement>(null);
   const [submitted, setSubmitted] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [errorMsg, setErrorMsg] = useState("");
   const [openFaq, setOpenFaq] = useState<number | null>(0);
 
   const waMessage = encodeURIComponent(
@@ -129,9 +131,40 @@ export default function ContactContent() {
     return () => ctx.revert();
   }, [locale]);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setSubmitted(true);
+    setLoading(true);
+    setErrorMsg("");
+
+    const formData = new FormData(e.currentTarget);
+    const data = Object.fromEntries(formData.entries());
+
+    try {
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data),
+      });
+
+      const result = await res.json();
+      if (res.ok && result.success) {
+        setSubmitted(true);
+      } else {
+        setErrorMsg(
+          locale === "ar"
+            ? "فشل إرسال الرسالة، يرجى المحاولة لاحقاً."
+            : "L'envoi a échoué. Veuillez réessayer."
+        );
+      }
+    } catch (err) {
+      setErrorMsg(
+        locale === "ar"
+          ? "فشل إرسال الرسالة، يرجى المحاولة لاحقاً."
+          : "L'envoi a échoué. Veuillez réessayer."
+      );
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -282,7 +315,7 @@ export default function ContactContent() {
                       {(["formName", "formLastname"] as const).map((field) => (
                         <div key={field}>
                           <label className="block text-xs font-bold text-white/50 uppercase tracking-widest mb-2">{t(field)}</label>
-                          <input type="text" required
+                          <input type="text" name={field} required
                             className="w-full bg-white/[0.05] border border-white/[0.10] rounded-xl px-4 py-3 text-sm text-white placeholder-white/20 focus:outline-none focus:border-[#F8A700]/60 focus:bg-white/[0.07] transition-all" />
                         </div>
                       ))}
@@ -291,35 +324,43 @@ export default function ContactContent() {
                     {(["formEmail", "formPhone"] as const).map((field) => (
                       <div key={field}>
                         <label className="block text-xs font-bold text-white/50 uppercase tracking-widest mb-2">{t(field)}</label>
-                        <input type={field === "formEmail" ? "email" : "tel"} required={field === "formEmail"}
+                        <input type={field === "formEmail" ? "email" : "tel"} name={field} required={field === "formEmail"}
                           className="w-full bg-white/[0.05] border border-white/[0.10] rounded-xl px-4 py-3 text-sm text-white placeholder-white/20 focus:outline-none focus:border-[#F8A700]/60 focus:bg-white/[0.07] transition-all" />
                       </div>
                     ))}
 
                     <div>
                       <label className="block text-xs font-bold text-white/50 uppercase tracking-widest mb-2">{t("formService")}</label>
-                      <select className="w-full bg-white/[0.05] border border-white/[0.10] rounded-xl px-4 py-3 text-sm text-white/70 focus:outline-none focus:border-[#F8A700]/60 transition-all"
+                      <select name="formService" className="w-full bg-white/[0.05] border border-white/[0.10] rounded-xl px-4 py-3 text-sm text-white/70 focus:outline-none focus:border-[#F8A700]/60 transition-all"
                         style={{ backgroundColor: "rgba(255,255,255,0.04)" }}>
                         <option value="" style={{ background: "#1D1D1B" }}>{t("formServiceDefault")}</option>
                         {(["s1", "s2", "s3", "s4", "s5"] as const).map((s) => (
-                          <option key={s} style={{ background: "#1D1D1B" }}>{t(s)}</option>
+                          <option key={s} value={t(s)} style={{ background: "#1D1D1B" }}>{t(s)}</option>
                         ))}
                       </select>
                     </div>
 
                     <div>
                       <label className="block text-xs font-bold text-white/50 uppercase tracking-widest mb-2">{t("formMessage")}</label>
-                      <textarea rows={4} required placeholder={t("formMessagePlaceholder")}
+                      <textarea name="formMessage" rows={4} required placeholder={t("formMessagePlaceholder")}
                         className="w-full bg-white/[0.05] border border-white/[0.10] rounded-xl px-4 py-3 text-sm text-white placeholder-white/20 focus:outline-none focus:border-[#F8A700]/60 focus:bg-white/[0.07] transition-all resize-none" />
                     </div>
 
-                    <button type="submit"
-                      className="group w-full flex items-center justify-center gap-3 bg-[#F8A700] hover:bg-[#D48F00] text-[#1D1D1B] font-extrabold py-4 rounded-xl text-base transition-all duration-200 hover:scale-[1.01]"
+                    {errorMsg && (
+                      <div className="bg-red-500/10 border border-red-500/50 text-red-500 p-4 rounded-xl text-sm mb-4 text-center">
+                        {errorMsg}
+                      </div>
+                    )}
+
+                    <button type="submit" disabled={loading}
+                      className={`group w-full flex items-center justify-center gap-3 bg-[#F8A700] ${loading ? "opacity-70 cursor-not-allowed" : "hover:bg-[#D48F00] hover:scale-[1.01]"} text-[#1D1D1B] font-extrabold py-4 rounded-xl text-base transition-all duration-200`}
                       style={{ boxShadow: "0 0 30px rgba(248,167,0,0.2)" }}>
-                      {t("formSubmit")}
-                      <svg className="w-5 h-5 transition-transform duration-300 group-hover:translate-x-1" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
-                        <line x1="22" y1="2" x2="11" y2="13" /><polygon points="22 2 15 22 11 13 2 9 22 2" />
-                      </svg>
+                      {loading ? (locale === "ar" ? "جاري الإرسال..." : "Envoi en cours...") : t("formSubmit")}
+                      {!loading && (
+                        <svg className="w-5 h-5 transition-transform duration-300 group-hover:translate-x-1" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
+                          <line x1="22" y1="2" x2="11" y2="13" /><polygon points="22 2 15 22 11 13 2 9 22 2" />
+                        </svg>
+                      )}
                     </button>
                   </form>
                 )}

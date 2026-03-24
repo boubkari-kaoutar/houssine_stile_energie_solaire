@@ -1,5 +1,6 @@
 "use client";
 
+import { useRef, useEffect } from "react";
 import { useLocale } from "next-intl";
 
 const TESTIMONIALS = {
@@ -22,9 +23,30 @@ const CARD_STYLES = [
 ];
 
 export default function FloatingTestimonials({ titleClass = "" }: { titleClass?: string }) {
-  const locale = useLocale();
-  const isRTL  = locale === "ar";
-  const items  = locale === "ar" ? TESTIMONIALS.ar : TESTIMONIALS.fr;
+  const locale    = useLocale();
+  const isRTL     = locale === "ar";
+  const items     = locale === "ar" ? TESTIMONIALS.ar : TESTIMONIALS.fr;
+  const sectionRef = useRef<HTMLElement>(null);
+  const glowRef    = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const section = sectionRef.current;
+    const glow    = glowRef.current;
+    if (!section || !glow) return;
+    const onMove = (e: MouseEvent) => {
+      const rect = section.getBoundingClientRect();
+      glow.style.left    = `${e.clientX - rect.left}px`;
+      glow.style.top     = `${e.clientY - rect.top}px`;
+      glow.style.opacity = "1";
+    };
+    const onLeave = () => { glow.style.opacity = "0"; };
+    section.addEventListener("mousemove", onMove);
+    section.addEventListener("mouseleave", onLeave);
+    return () => {
+      section.removeEventListener("mousemove", onMove);
+      section.removeEventListener("mouseleave", onLeave);
+    };
+  }, []);
 
   return (
     <>
@@ -38,8 +60,12 @@ export default function FloatingTestimonials({ titleClass = "" }: { titleClass?:
         .card-float-1:hover,.card-float-2:hover,.card-float-3:hover{animation-play-state:paused;transform:rotate(0deg) scale(1.05)!important}
       `}</style>
 
-      <section className="relative py-32 overflow-hidden border-t border-white/[0.06]"
+      <section ref={sectionRef} className="relative py-32 overflow-hidden border-t border-white/[0.06]"
         style={{ background: "linear-gradient(160deg, #141412 0%, #1a1f18 50%, #141412 100%)" }}>
+
+        {/* Cursor glow */}
+        <div ref={glowRef} className="pointer-events-none absolute -translate-x-1/2 -translate-y-1/2 rounded-full"
+          style={{ width: "600px", height: "600px", background: "radial-gradient(circle, rgba(248,167,0,0.08) 0%, rgba(248,167,0,0.03) 40%, transparent 70%)", transition: "opacity 0.4s ease, left 0.08s linear, top 0.08s linear", opacity: 0, zIndex: 1 }} />
 
         {/* Ambient glows */}
         <div className="absolute top-0 left-1/4 w-96 h-96 rounded-full pointer-events-none"

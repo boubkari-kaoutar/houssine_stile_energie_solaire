@@ -14,12 +14,12 @@ export default function WhyUs() {
   const locale = useLocale();
   const isRTL  = locale === "ar";
   const sectionRef = useRef<HTMLElement>(null);
-  const barsRef    = useRef<HTMLDivElement>(null);
 
-  const BARS = [
-    { pct: 70,  label: tAbout("stat1"), color: "#F8A700" },
-    { pct: 85,  label: tAbout("stat2"), color: "#17A73D" },
-    { pct: 55,  label: tAbout("stat3"), color: "#1D1D1B" },
+  const STATS = [
+    { target: 70, suffix: "+", label: tAbout("stat1"), color: "#F8A700" },
+    { target: 85, suffix: "%", label: tAbout("stat2"), color: "#17A73D" },
+    { target: 55, suffix: "%", label: tAbout("stat3"), color: "#F8A700" },
+    { target: 25, suffix: " ans", label: t("guarantee"), color: "#FFFFFF" },
   ];
 
   useEffect(() => {
@@ -31,20 +31,22 @@ export default function WhyUs() {
             scrollTrigger: { trigger: el, start: "top 85%" } }
         );
       });
-      gsap.fromTo(".why-metric",
-        { y: 20, opacity: 0 },
-        { y: 0, opacity: 1, duration: 0.6, stagger: 0.1, ease: "power2.out",
-          scrollTrigger: { trigger: ".why-metric", start: "top 85%" } }
-      );
-      ScrollTrigger.create({
-        trigger: ".gauge-wrapper",
-        start: "top 82%",
-        onEnter: () => {
-          document.querySelectorAll<HTMLElement>(".bar-fill").forEach((el) => {
-            gsap.fromTo(el, { width: "0%" }, { width: el.dataset.pct + "%", duration: 1.2, ease: "power2.out" });
-          });
-        },
+      gsap.utils.toArray<HTMLElement>(".stat-num").forEach((el) => {
+        const target = parseFloat(el.getAttribute("data-target") || "0");
+        gsap.to(el, {
+          textContent: target,
+          duration: 2.5,
+          ease: "power2.out",
+          snap: { textContent: 1 },
+          scrollTrigger: { trigger: ".stats-banner", start: "top 85%" }
+        });
       });
+      
+      gsap.fromTo(".stat-item",
+        { y: 30, opacity: 0 },
+        { y: 0, opacity: 1, duration: 0.8, stagger: 0.15, ease: "power2.out",
+          scrollTrigger: { trigger: ".stats-banner", start: "top 85%" } }
+      );
     }, sectionRef);
     return () => ctx.revert();
   }, [isRTL]);
@@ -70,56 +72,26 @@ export default function WhyUs() {
         </div>
       </div>
 
-      {/* ── Part 2 : progress bars + metric cards ── */}
-      <div className="py-20 bg-[#F9F6F1]">
-        <div className="max-w-5xl mx-auto px-6">
-          <div ref={barsRef}
-            className="bg-white rounded-3xl p-8 md:p-12 shadow-[0_8px_60px_rgba(0,0,0,0.08)] border border-gray-100">
+      {/* ── Part 2 : Stats Banner ── */}
+      <div className="stats-banner py-16 md:py-20 bg-[#141412] relative overflow-hidden border-t border-white/[0.04]">
+        {/* Ambient Glow */}
+        <div className="absolute inset-x-0 bottom-0 h-full pointer-events-none" style={{ background: "radial-gradient(ellipse at center bottom, rgba(248,167,0,0.04) 0%, transparent 60%)" }} />
 
-            <h3 className={`font-extrabold text-2xl text-[#1D1D1B] mb-1 ${isRTL ? "text-right font-cairo" : ""}`}>
-              {locale === "ar" ? "توفير الطاقة المحقق" : "Économies d'énergie réalisées"}
-            </h3>
-            <p className={`text-gray-400 text-sm mb-10 ${isRTL ? "text-right" : ""}`}>
-              {locale === "ar" ? "حسب قطاع النشاط" : "Par secteur d'activité"}
-            </p>
-
-            {/* Bars */}
-            <div className="gauge-wrapper space-y-6 mb-12">
-              {BARS.map((b, i) => (
-                <div key={i}>
-                  <div className={`flex justify-between items-center mb-2 ${isRTL ? "flex-row-reverse" : ""}`}>
-                    <span className="font-semibold text-sm text-[#1D1D1B]">{b.label}</span>
-                    <span className="font-bold text-sm" style={{ color: b.color }}>{b.pct}%</span>
-                  </div>
-                  <div className="h-3 bg-gray-100 rounded-full overflow-hidden">
-                    <div
-                      className="bar-fill h-full rounded-full"
-                      style={{ width: "0%", backgroundColor: b.color }}
-                      data-pct={b.pct}
-                    />
-                  </div>
+        <div className="max-w-7xl mx-auto px-6 relative z-10">
+          <div className={`grid grid-cols-2 md:grid-cols-4 gap-x-4 gap-y-12 md:gap-8 divide-none md:divide-x divide-white/10 ${isRTL ? "md:divide-x-reverse" : ""}`}>
+            {STATS.map((s, i) => (
+              <div key={i} className={`stat-item flex flex-col items-center justify-center text-center px-4 ${i === 0 ? "md:border-l-0" : ""}`}>
+                <div className={`flex items-baseline justify-center gap-1 mb-3 ${isRTL ? "flex-row-reverse" : ""}`}>
+                  <span className="stat-num text-5xl md:text-6xl lg:text-7xl font-extrabold tracking-tighter" style={{ color: s.color }} data-target={s.target}>
+                    0
+                  </span>
+                  <span className="text-2xl md:text-4xl font-bold" style={{ color: s.color }}>{s.suffix}</span>
                 </div>
-              ))}
-            </div>
-
-            {/* Metric cards */}
-            <div className="grid grid-cols-2 gap-4 mb-8">
-              <div className="why-metric bg-gray-50 rounded-2xl p-6 text-center border border-gray-100">
-                <div className="text-4xl font-extrabold text-[#F8A700]">25 ans</div>
-                <div className="text-gray-500 text-xs mt-2 uppercase tracking-wide">{t("guarantee")}</div>
+                <p className="text-gray-400 text-xs md:text-sm font-bold uppercase tracking-widest max-w-[200px]">
+                  {s.label}
+                </p>
               </div>
-              <div className="why-metric bg-[#F8A700] rounded-2xl p-6 text-center">
-                <div className="text-4xl font-extrabold text-[#1D1D1B]">~5 ans</div>
-                <div className="text-[#3d3c39] text-xs mt-2 uppercase tracking-wide">{t("roi")}</div>
-              </div>
-            </div>
-
-            {/* Color legend */}
-            <div className="flex gap-2">
-              {BARS.map((b, i) => (
-                <div key={i} className="flex-1 h-1 rounded-full" style={{ backgroundColor: b.color }} />
-              ))}
-            </div>
+            ))}
           </div>
         </div>
       </div>

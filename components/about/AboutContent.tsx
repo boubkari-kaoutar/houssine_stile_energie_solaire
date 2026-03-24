@@ -226,21 +226,21 @@ function CtaCinematic({
         <div className={`leading-[0.88] tracking-tight font-extrabold text-white select-none ${isRTL ? "text-right font-cairo" : ""}`}>
           {/* Line 1 */}
           <div className="ab-reveal flex justify-center mb-2">
-            <span className="text-[11vw] md:text-[9vw] leading-none">
+            <span className="text-[11vw] md:text-[7vw] leading-none">
               {locale === "ar" ? "مستعد" : "Prêt à"}
             </span>
           </div>
 
           {/* Line 2 */}
           <div className="ab-reveal flex justify-center mb-2">
-            <span className="text-[11vw] md:text-[9vw] leading-none">
+            <span className="text-[11vw] md:text-[7vw] leading-none">
               {locale === "ar" ? "للتحول إلى" : "passer à"}
             </span>
           </div>
 
           {/* Line 3 */}
           <div className="ab-reveal flex justify-center mb-2">
-            <span className="text-[11vw] md:text-[9vw] leading-none">
+            <span className="text-[11vw] md:text-[7vw] leading-none">
               {locale === "ar" ? "الطاقة الشمسية ؟" : "l'énergie solaire ?"}
             </span>
           </div>
