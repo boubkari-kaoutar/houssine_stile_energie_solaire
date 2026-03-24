@@ -4,7 +4,7 @@ import { useEffect, useRef } from "react";
 import { useLocale, useTranslations } from "next-intl";
 import gsap from "gsap";
 
-const PHONE = "212600000000";
+const PHONE = "212661780430";
 
 export default function WhatsAppButton() {
   const t = useTranslations("whatsapp");

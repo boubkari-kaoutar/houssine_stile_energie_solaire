@@ -110,9 +110,9 @@
     "title": "تحدث عن مشروعك",
     "subtitle": "لديك مشروع أو سؤال؟ فريقنا متاح لمرافقتك.",
     "address": "العنوان",
-    "addressValue": "123 شارع الشمس، الدار البيضاء",
+    "addressValue": "المغرب",
     "phone": "الهاتف",
-    "phoneValue": "+212 5 22 XX XX XX",
+    "phoneValue": "+212 661 780 430",
     "email": "البريد الإلكتروني",
     "emailValue": "contact@sunset-energy.ma",
     "hours": "ساعات العمل",
@@ -144,5 +144,8 @@
   },
   "whatsapp": {
     "tooltip": "تحدث معنا على واتساب"
+  },
+  "frameAnimation": {
+    "scrollHint": "مرر للاستكشاف"
   }
 }

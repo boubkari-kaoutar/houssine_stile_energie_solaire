@@ -110,9 +110,9 @@
     "title": "Parlons de votre projet",
     "subtitle": "Vous avez un projet ou une question ? Notre équipe est disponible pour vous accompagner.",
     "address": "Adresse",
-    "addressValue": "123 Avenue Solaire, Casablanca",
+    "addressValue": "Maroc",
     "phone": "Téléphone",
-    "phoneValue": "+212 5 22 XX XX XX",
+    "phoneValue": "+212 661 780 430",
     "email": "Email",
     "emailValue": "contact@sunset-energy.ma",
     "hours": "Horaires",
@@ -144,5 +144,8 @@
   },
   "whatsapp": {
     "tooltip": "Discutons sur WhatsApp"
+  },
+  "frameAnimation": {
+    "scrollHint": "Défiler pour explorer"
   }
 }
