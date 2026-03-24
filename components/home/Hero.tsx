@@ -3,6 +3,7 @@
 import { useEffect, useRef } from "react";
 import { useTranslations, useLocale } from "next-intl";
 import { Link } from "@/i18n/navigation";
+import Image from "next/image";
 import gsap from "gsap";
 import { useFrameSequence } from "@/hooks/useFrameSequence";
 
@@ -21,6 +22,8 @@ export default function Hero() {
 
   const contentRef = useRef<HTMLDivElement>(null);
   const raysRef    = useRef<HTMLDivElement>(null);
+  const slide1Ref  = useRef<HTMLDivElement>(null);
+  const slide2Ref  = useRef<HTMLDivElement>(null);
 
   const { loadProgress, isReady, sectionRef, canvasRef } = useFrameSequence();
 
@@ -37,12 +40,31 @@ export default function Hero() {
     return () => ctx.revert();
   }, []);
 
-  // ── Parallax sun rays on scroll ────────────────────────────────────────────
+  // ── Parallax sun rays + scroll slide swap ──────────────────────────────────
   useEffect(() => {
     const onScroll = () => {
       if (raysRef.current) {
         raysRef.current.style.transform = `rotate(${window.scrollY * 0.02}deg)`;
       }
+      const section = sectionRef.current as HTMLElement | null;
+      const s1 = slide1Ref.current;
+      const s2 = slide2Ref.current;
+      if (!section || !s1 || !s2) return;
+
+      const rect = section.getBoundingClientRect();
+      const totalScroll = section.offsetHeight - window.innerHeight;
+      const scrolled = -rect.top;
+      const p = Math.max(0, Math.min(1, scrolled / totalScroll));
+
+      // Slide 1: visible 0→40%, fade out 40→55%
+      const op1 = p < 0.40 ? 1 : p < 0.55 ? 1 - (p - 0.40) / 0.15 : 0;
+      // Slide 2: fade in 45→60%, visible 60→100%
+      const op2 = p < 0.45 ? 0 : p < 0.60 ? (p - 0.45) / 0.15 : 1;
+
+      s1.style.opacity = String(op1);
+      s1.style.transform = `translateY(${p < 0.40 ? 0 : -(p - 0.40) * 60}px)`;
+      s2.style.opacity = String(op2);
+      s2.style.transform = `translateY(${p < 0.60 ? (1 - (p - 0.45) / 0.15) * 40 : 0}px)`;
     };
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
@@ -61,23 +83,15 @@ export default function Hero() {
           className="fixed inset-0 z-[60] bg-[#1D1D1B] flex flex-col items-center justify-center gap-6"
           aria-live="polite"
         >
-          <div className="relative w-16 h-16">
-            <div
-              className="absolute inset-0 rounded-full border-2 border-[#F8A700]/20"
-              style={{ animation: "pulseRing 2s ease-out infinite" }}
-            />
-            <div
-              className="absolute inset-2 rounded-full bg-[#F8A700]/10 border border-[#F8A700]/40"
-              style={{ animation: "sunPulse 2s ease-in-out infinite" }}
-            />
-            <svg
-              className="absolute inset-0 m-auto w-7 h-7 text-[#F8A700]"
-              fill="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <circle cx="12" cy="12" r="5" />
-            </svg>
+          <div className="relative" style={{ animation: "sunPulse 2s ease-in-out infinite" }}>
+            <Image src="/logo.png" alt="Sunset Energy" width={140} height={56} className="object-contain" priority />
           </div>
+
+          {/* Tagline */}
+          <p className="text-white/30 text-xs uppercase tracking-[0.3em] font-medium">
+            Énergie solaire · Maroc
+          </p>
+
           <div className="w-56 flex flex-col items-center gap-2">
             <div className="w-full h-[2px] bg-white/10 rounded-full overflow-hidden">
               <div
@@ -149,78 +163,92 @@ export default function Hero() {
         {/* Bottom fade into next section */}
         <div className="absolute bottom-0 left-0 right-0 h-48 bg-gradient-to-t from-[#1D1D1B] to-transparent pointer-events-none" />
 
-        {/* ── Hero content ──────────────────────────────────────────────────── */}
+        {/* ── Hero content wrapper ───────────────────────────────────────────── */}
         <div
           ref={contentRef}
-          className={`relative z-10 h-full flex flex-col items-center justify-center max-w-4xl mx-auto px-6 text-center pt-70 ${
-            isRTL ? "font-cairo" : ""
-          }`}
+          className={`relative z-10 h-full pt-20 ${isRTL ? "font-cairo" : ""}`}
         >
-          {/* Headline */}
-          <h1 className="text-5xl md:text-7xl font-extrabold text-white leading-[1.08] mb-6">
-            <span className="hero-line block">{t("headline1")}</span>
-            <span className="hero-line block gradient-text-solar animate-shimmer">
-              {t("headline2")}
-            </span>
-          </h1>
 
-          {/* Subtitle */}
-          <p className="hero-sub text-lg md:text-xl text-gray-400 max-w-2xl mx-auto mb-10 leading-relaxed">
-            {t("subheadline")}
-          </p>
-
-          {/* Buttons */}
+          {/* ── Slide 1 : headline + subtitle + buttons + trust ── */}
           <div
-            className={`hero-btns flex flex-col sm:flex-row gap-4 justify-center mb-14 ${
-              isRTL ? "sm:flex-row-reverse" : ""
-            }`}
+            ref={slide1Ref}
+            className="absolute inset-0 flex flex-col items-center justify-center px-6 text-center pt-20"
+            style={{ transition: "opacity 0.1s, transform 0.1s" }}
           >
-            <Link
-              href="/contact"
-              className="bg-[#F8A700] hover:bg-[#D48F00] text-[#1D1D1B] font-extrabold px-8 py-4 rounded-full text-lg transition-all duration-200 shadow-glow-solar hover:scale-105"
-            >
-              {t("cta")}
-            </Link>
-            <Link
-              href="/services"
-              className="border-2 border-white/20 hover:border-[#F8A700] text-white hover:text-[#F8A700] font-bold px-8 py-4 rounded-full text-lg transition-all duration-200 hover:scale-105"
-            >
-              {t("ctaSecondary")}
-            </Link>
-          </div>
+            <div className="hero-line inline-flex items-center gap-2 bg-white/[0.07] border border-white/10 px-4 py-1.5 rounded-full mb-6">
+              <span className="w-1.5 h-1.5 rounded-full bg-[#F8A700] animate-pulse" />
+              <span className="text-white/60 text-xs uppercase tracking-[0.25em] font-semibold">{t("badge")}</span>
+            </div>
 
-          {/* Trust badges */}
-          <div
-            className={`flex flex-wrap justify-center gap-4 mb-14 ${
-              isRTL ? "flex-row-reverse" : ""
-            }`}
-          >
-            {TRUST.map((key) => (
-              <div
-                key={key}
-                className="hero-trust flex items-center gap-2 bg-white/5 border border-white/10 px-4 py-2 rounded-full text-sm text-gray-300"
-              >
-                <svg className="w-3.5 h-3.5 text-[#17A73D]" fill="currentColor" viewBox="0 0 20 20">
-                  <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+            <h1 className="max-w-4xl mx-auto font-extrabold leading-[1.05] mb-6"
+              style={{ fontSize: "clamp(2rem, 5vw, 3.8rem)" }}>
+              <span className="hero-line block text-white">{t("headline1")}</span>
+              <span className="hero-line block gradient-text-solar animate-shimmer">{t("headline2")}</span>
+            </h1>
+
+            <p className="hero-sub text-base md:text-lg text-gray-400 max-w-xl mx-auto mb-10 leading-[1.8]">
+              {t("subheadline")}
+            </p>
+
+            <div className={`hero-btns flex flex-col sm:flex-row items-center gap-3 justify-center mb-10 ${isRTL ? "sm:flex-row-reverse" : ""}`}>
+              <Link href="/contact"
+                className="group relative overflow-hidden bg-[#F8A700] text-[#1D1D1B] font-extrabold px-9 py-4 rounded-full text-base transition-all duration-200 hover:scale-105 shadow-[0_0_30px_rgba(248,167,0,0.35)]">
+                <span className="absolute inset-0 w-0 group-hover:w-full transition-all duration-500 ease-in-out bg-[#17A73D] rounded-full z-0" />
+                <span className="relative z-10">{t("cta")}</span>
+              </Link>
+              <Link href="/services"
+                className="group flex items-center gap-2 border border-white/20 hover:border-[#F8A700]/60 text-white/80 hover:text-white font-semibold px-9 py-4 rounded-full text-base transition-all duration-200 hover:scale-105 hover:bg-white/[0.04]">
+                {t("ctaSecondary")}
+                <svg className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+                  <path d="M5 12h14M12 5l7 7-7 7" />
                 </svg>
-                {t(key)}
-              </div>
-            ))}
+              </Link>
+            </div>
+
+            <div className={`flex flex-wrap justify-center gap-3 ${isRTL ? "flex-row-reverse" : ""}`}>
+              {TRUST.map((key) => (
+                <div key={key} className="hero-trust flex items-center gap-1.5 bg-white/[0.05] border border-white/[0.08] px-3.5 py-1.5 rounded-full text-xs text-gray-400">
+                  <svg className="w-3 h-3 text-[#17A73D] flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                    <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                  </svg>
+                  {t(key)}
+                </div>
+              ))}
+            </div>
           </div>
 
-          {/* Stats */}
+          {/* ── Slide 2 : stats ── */}
           <div
-            className={`flex flex-wrap justify-center gap-12 md:gap-20 ${
-              isRTL ? "flex-row-reverse" : ""
-            }`}
+            ref={slide2Ref}
+            className="absolute inset-0 flex flex-col items-center justify-center px-6 text-center pt-20"
+            style={{ opacity: 0, transform: "translateY(40px)", transition: "opacity 0.1s, transform 0.1s" }}
           >
-            {STATS.map((s) => (
-              <div key={s.key} className="hero-stat text-center">
-                <div className="text-4xl font-extrabold text-[#F8A700]">{s.value}</div>
-                <div className="text-gray-500 text-sm mt-1">{t(s.key)}</div>
-              </div>
-            ))}
+            <p className="text-[#F8A700] text-xs font-bold uppercase tracking-[0.3em] mb-6">
+              {locale === "ar" ? "أرقامنا تتحدث" : "Nos chiffres parlent"}
+            </p>
+            <h2 className="font-extrabold text-white leading-[1.05] mb-4"
+              style={{ fontSize: "clamp(2.2rem, 6vw, 4.5rem)" }}>
+              {locale === "ar" ? "ثقة أكثر من 500 عميل" : "Plus de 500 clients"}
+              <br />
+              <span style={{ color: "#F8A700" }}>
+                {locale === "ar" ? "في كل المغرب." : "nous font confiance."}
+              </span>
+            </h2>
+            <p className="text-gray-400 text-base max-w-md mx-auto mb-14 leading-[1.8]">
+              {locale === "ar"
+                ? "خفّض فاتورتك بنسبة تصل إلى 70% مع ضمان أداء 25 سنة."
+                : "Réduisez votre facture jusqu'à 70% avec une garantie performance 25 ans."}
+            </p>
+            <div className={`flex flex-wrap justify-center gap-14 md:gap-20 ${isRTL ? "flex-row-reverse" : ""}`}>
+              {STATS.map((s) => (
+                <div key={s.key} className="hero-stat text-center">
+                  <div className="text-4xl md:text-5xl font-extrabold text-[#F8A700]">{s.value}</div>
+                  <div className="text-gray-400 text-xs mt-2 uppercase tracking-widest">{t(s.key)}</div>
+                </div>
+              ))}
+            </div>
           </div>
+
         </div>
 
       </div>

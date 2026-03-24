@@ -5,6 +5,7 @@ import { useTranslations, useLocale } from "next-intl";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { Link } from "@/i18n/navigation";
+import WhyUsGrid from "@/components/ui/WhyUsGrid";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -340,9 +341,9 @@ export default function AboutContent() {
       {/* ── 1. HERO — titre + mini stats ──────────────────────────────────── */}
       <section className="relative min-h-screen flex flex-col justify-end pb-16 overflow-hidden bg-[#1D1D1B]">
         <img
-          src="/images/apropos.png"
+          src="/images/energie_solaire_contact.png"
           alt=""
-          className="absolute inset-0 w-full h-full object-cover"
+          className="absolute inset-0 w-full h-full object-cover scale-[1.25] origin-center"
           aria-hidden="true"
         />
         <div className="absolute inset-0 bg-gradient-to-b from-[#1D1D1B]/20 via-transparent to-[#1D1D1B]" />
@@ -516,95 +517,8 @@ export default function AboutContent() {
             </h2>
           </div>
 
-          {/* Grid 2x2 */}
-          <div className="grid md:grid-cols-2 gap-4">
-            {[
-              {
-                num: "01",
-                color: "#F8A700",
-                title: locale === "ar" ? "توفير مضمون يصل إلى 70%" : "Économies garanties jusqu'à 70%",
-                desc: locale === "ar"
-                  ? "نصمم كل منشأة لتحقيق أقصى عائد مالي. عملاؤنا يوفرون في المتوسط 60 إلى 70% من فاتورة الكهرباء خلال السنة الأولى."
-                  : "Chaque installation est dimensionnée pour maximiser votre retour financier. Nos clients économisent en moyenne 60 à 70% sur leur facture dès la première année.",
-                icon: (
-                  <svg width="24" height="24" fill="none" stroke="currentColor" strokeWidth="1.8" viewBox="0 0 24 24">
-                    <polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/>
-                    <polyline points="17 6 23 6 23 12"/>
-                  </svg>
-                ),
-              },
-              {
-                num: "02",
-                color: "#17A73D",
-                title: locale === "ar" ? "تقنيون معتمدون وذوو خبرة" : "Techniciens certifiés & expérimentés",
-                desc: locale === "ar"
-                  ? "فريقنا مدرب على أحدث تقنيات الطاقة الشمسية ومعتمد من الجهات المختصة. كل تركيب يخضع لمراقبة صارمة لضمان الجودة والسلامة."
-                  : "Notre équipe est formée aux dernières technologies solaires et certifiée par les organismes compétents. Chaque installation est supervisée pour garantir qualité et sécurité.",
-                icon: (
-                  <svg width="24" height="24" fill="none" stroke="currentColor" strokeWidth="1.8" viewBox="0 0 24 24">
-                    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
-                  </svg>
-                ),
-              },
-              {
-                num: "03",
-                color: "#8899FF",
-                title: locale === "ar" ? "حلول مخصصة لكل مشروع" : "Solutions 100% sur mesure",
-                desc: locale === "ar"
-                  ? "لا يوجد مشروعان متماثلان. ندرس كل حالة على حدة — السطح، الاستهلاك، الميزانية — لنصمم نظاماً يناسبك تماماً ويحقق أفضل النتائج."
-                  : "Aucun projet ne se ressemble. Nous étudions chaque cas — toiture, consommation, budget — pour concevoir un système parfaitement adapté à votre situation.",
-                icon: (
-                  <svg width="24" height="24" fill="none" stroke="currentColor" strokeWidth="1.8" viewBox="0 0 24 24">
-                    <circle cx="12" cy="12" r="3"/>
-                    <path d="M19.07 4.93a10 10 0 0 1 0 14.14M4.93 4.93a10 10 0 0 0 0 14.14"/>
-                    <path d="M15.54 8.46a5 5 0 0 1 0 7.07M8.46 8.46a5 5 0 0 0 0 7.07"/>
-                  </svg>
-                ),
-              },
-              {
-                num: "04",
-                color: "#F86400",
-                title: locale === "ar" ? "مرافقة كاملة من البداية إلى النهاية" : "Accompagnement de A à Z",
-                desc: locale === "ar"
-                  ? "نرافقك في كل خطوة: الدراسة الأولية، التصميم، التركيب، والمتابعة بعد التشغيل. خط مفتوح مع فريقنا في جميع الأوقات."
-                  : "Nous vous accompagnons à chaque étape : étude initiale, conception, installation et suivi post-mise en service. Une ligne directe avec notre équipe, toujours disponible.",
-                icon: (
-                  <svg width="24" height="24" fill="none" stroke="currentColor" strokeWidth="1.8" viewBox="0 0 24 24">
-                    <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/>
-                    <path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/>
-                  </svg>
-                ),
-              },
-            ].map((item) => (
-              <div
-                key={item.num}
-                className={`ab-reveal group relative p-10 md:p-12 rounded-2xl border border-white/[0.08] transition-all duration-300 hover:-translate-y-1 ${isRTL ? "text-right" : ""}`}
-                style={{ background: `linear-gradient(135deg, rgba(255,255,255,0.04) 0%, rgba(${item.color === "#F8A700" ? "248,167,0" : item.color === "#17A73D" ? "23,167,61" : item.color === "#8899FF" ? "136,153,255" : "248,100,0"},0.05) 100%)`, boxShadow: `0 1px 0 0 ${item.color}20 inset` }}
-              >
-                {/* Number */}
-                <span
-                  className={`absolute top-8 font-extrabold text-[5rem] leading-none opacity-[0.05] select-none pointer-events-none ${isRTL ? "left-8" : "right-8"}`}
-                  style={{ color: item.color }}
-                >
-                  {item.num}
-                </span>
-
-                {/* Icon */}
-                <div
-                  className="w-14 h-14 rounded-xl flex items-center justify-center mb-8 transition-transform duration-300 group-hover:scale-105"
-                  style={{ backgroundColor: `${item.color}12`, color: item.color, border: `1px solid ${item.color}25` }}
-                >
-                  {item.icon}
-                </div>
-
-                <h3 className="text-white font-extrabold text-xl mb-4 leading-tight">{item.title}</h3>
-                <p className="text-gray-400 text-sm leading-[1.85]">{item.desc}</p>
-
-                {/* Bottom bar */}
-                <div className="mt-8 h-[2px] w-8 rounded-full transition-all duration-300 group-hover:w-16" style={{ backgroundColor: item.color }} />
-              </div>
-            ))}
-          </div>
+          {/* Grid 2x2 — shared component */}
+          <WhyUsGrid animClass="ab-reveal" />
         </div>
       </section>
 

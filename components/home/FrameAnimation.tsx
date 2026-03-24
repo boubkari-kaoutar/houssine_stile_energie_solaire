@@ -2,6 +2,7 @@
 
 import { useLocale, useTranslations } from "next-intl";
 import { useFrameSequence } from "@/hooks/useFrameSequence";
+import Image from "next/image";
 
 // ─── Overlay text that fades in as the user scrolls ───────────────────────────
 const OVERLAY_STEPS = [
@@ -31,24 +32,15 @@ export default function FrameAnimation() {
           className="fixed inset-0 z-[60] bg-[#1D1D1B] flex flex-col items-center justify-center gap-6"
           aria-live="polite"
         >
-          {/* Animated sun loader */}
-          <div className="relative w-16 h-16">
-            <div
-              className="absolute inset-0 rounded-full border-2 border-[#F8A700]/20"
-              style={{ animation: "pulseRing 2s ease-out infinite" }}
-            />
-            <div
-              className="absolute inset-2 rounded-full bg-[#F8A700]/10 border border-[#F8A700]/40"
-              style={{ animation: "sunPulse 2s ease-in-out infinite" }}
-            />
-            <svg
-              className="absolute inset-0 m-auto w-7 h-7 text-[#F8A700]"
-              fill="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <circle cx="12" cy="12" r="5" />
-            </svg>
+          {/* Logo */}
+          <div className="relative" style={{ animation: "sunPulse 2s ease-in-out infinite" }}>
+            <Image src="/logo.png" alt="Sunset Energy" width={140} height={56} className="object-contain" priority />
           </div>
+
+          {/* Tagline */}
+          <p className="text-white/30 text-xs uppercase tracking-[0.3em] font-medium">
+            Énergie solaire · Maroc
+          </p>
 
           {/* Progress bar */}
           <div className="w-56 flex flex-col items-center gap-2">
