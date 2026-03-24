@@ -266,6 +266,151 @@ export default function ServicesContent() {
         })}
       </div>
 
+      {/* ── Quel service vous correspond ? ─────────────────────────────────── */}
+      <section className="relative py-24 lg:py-32 bg-[#1D1D1B] border-t border-white/[0.06] overflow-hidden">
+        {/* Gold glow bottom-center */}
+        <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[600px] h-[300px] pointer-events-none"
+          style={{ background: "radial-gradient(ellipse at center bottom, rgba(248,167,0,0.07) 0%, transparent 70%)" }} />
+
+        <div className="relative z-10 max-w-7xl mx-auto px-6">
+
+          {/* Section title */}
+          <div className={`mb-16 ${isRTL ? "text-right" : ""}`}>
+            <p className="text-[#F8A700] text-xs font-bold uppercase tracking-[0.25em] mb-4">
+              {locale === "ar" ? "أي خدمة تناسبك" : "Votre profil"}
+            </p>
+            <h2 className="text-4xl md:text-5xl font-extrabold text-white leading-tight tracking-tight">
+              {locale === "ar" ? "ابحث عن الحل المناسب لك" : "Trouvez votre solution"}
+            </h2>
+          </div>
+
+          {/* 4 service cards */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+            {[
+              {
+                cfg: SERVICE_CONFIG[0],
+                profile: locale === "ar" ? "أفراد / شركات" : "Particulier · Entreprise",
+                saving: "–70%",
+                savingLabel: locale === "ar" ? "توفير في الفاتورة" : "sur la facture",
+                delay: locale === "ar" ? "3–7 أيام" : "3–7 jours",
+                warranty: locale === "ar" ? "ضمان 25 سنة" : "Garantie 25 ans",
+                roi: locale === "ar" ? "عائد خلال 4–6 سنوات" : "ROI en 4–6 ans",
+              },
+              {
+                cfg: SERVICE_CONFIG[1],
+                profile: locale === "ar" ? "كل عميل جديد" : "Tout nouveau client",
+                saving: "100%",
+                savingLabel: locale === "ar" ? "تشخيص مجاني" : "diagnostic offert",
+                delay: locale === "ar" ? "1–2 أيام" : "1–2 jours",
+                warranty: locale === "ar" ? "تقرير مفصل" : "Rapport détaillé",
+                roi: locale === "ar" ? "فوري" : "Immédiat",
+              },
+              {
+                cfg: SERVICE_CONFIG[2],
+                profile: locale === "ar" ? "كل عملاء صنست" : "Clients Sunset Energy",
+                saving: "+5%",
+                savingLabel: locale === "ar" ? "أداء إضافي" : "de performance",
+                delay: locale === "ar" ? "24 ساعة" : "Sous 24h",
+                warranty: locale === "ar" ? "مراقبة مستمرة" : "Monitoring continu",
+                roi: locale === "ar" ? "مستمر" : "Continu",
+              },
+              {
+                cfg: SERVICE_CONFIG[3],
+                profile: locale === "ar" ? "أفراد / فنادق" : "Particulier · Hôtel",
+                saving: "–30%",
+                savingLabel: locale === "ar" ? "تحسين طاقي" : "efficacité habitat",
+                delay: locale === "ar" ? "2–5 أيام" : "2–5 jours",
+                warranty: locale === "ar" ? "5 سنوات" : "5 ans équipements",
+                roi: locale === "ar" ? "3–4 سنوات" : "ROI en 3–4 ans",
+              },
+            ].map(({ cfg, profile, saving, savingLabel, delay, warranty, roi }) => (
+              <div
+                key={cfg.key}
+                className="group relative flex flex-col rounded-2xl border border-white/[0.08] bg-white/[0.02] hover:bg-white/[0.05] transition-all duration-300 hover:-translate-y-1 overflow-hidden"
+                style={{ boxShadow: `0 0 0 0 ${cfg.glow}` }}
+                onMouseEnter={e => (e.currentTarget.style.boxShadow = `0 0 30px ${cfg.glow}`)}
+                onMouseLeave={e => (e.currentTarget.style.boxShadow = "none")}
+              >
+                {/* Top accent line */}
+                <div className="h-[3px] w-full" style={{ backgroundColor: cfg.iconColor }} />
+
+                <div className="flex flex-col flex-1 p-6 gap-5">
+                  {/* Number + title */}
+                  <div>
+                    <span className="text-xs font-bold uppercase tracking-widest" style={{ color: cfg.iconColor }}>
+                      {cfg.num}
+                    </span>
+                    <h3 className="text-white font-extrabold text-lg leading-tight mt-1">
+                      {t(`${cfg.key}.title`)}
+                    </h3>
+                    <p className="text-gray-500 text-xs mt-1">{profile}</p>
+                  </div>
+
+                  {/* Big metric */}
+                  <div
+                    className="rounded-xl px-4 py-4 text-center"
+                    style={{ backgroundColor: `${cfg.iconColor}10`, border: `1px solid ${cfg.borderColor}` }}
+                  >
+                    <div className="text-4xl font-extrabold leading-none" style={{ color: cfg.iconColor }}>
+                      {saving}
+                    </div>
+                    <div className="text-xs text-gray-400 mt-1">{savingLabel}</div>
+                  </div>
+
+                  {/* Key specs */}
+                  <ul className="flex flex-col gap-3 flex-1">
+                    {[
+                      { icon: "⏱", label: delay },
+                      { icon: "🛡", label: warranty },
+                      { icon: "📈", label: roi },
+                    ].map((item, ii) => (
+                      <li key={ii} className={`flex items-center gap-3 text-sm text-gray-300 ${isRTL ? "flex-row-reverse" : ""}`}>
+                        <span
+                          className="w-7 h-7 rounded-full flex items-center justify-center flex-shrink-0 text-xs"
+                          style={{ backgroundColor: `${cfg.iconColor}15`, color: cfg.iconColor }}
+                        >
+                          {ii === 0 && (
+                            <svg width="12" height="12" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                          )}
+                          {ii === 1 && (
+                            <svg width="12" height="12" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                          )}
+                          {ii === 2 && (
+                            <svg width="12" height="12" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>
+                          )}
+                        </span>
+                        {item.label}
+                      </li>
+                    ))}
+                  </ul>
+
+                  {/* CTA */}
+                  <Link
+                    href="/contact"
+                    className="mt-2 w-full text-center py-3 rounded-xl text-sm font-bold uppercase tracking-wider transition-all duration-200 border"
+                    style={{
+                      color: cfg.iconColor,
+                      borderColor: cfg.borderColor,
+                      backgroundColor: `${cfg.iconColor}08`,
+                    }}
+                    onMouseEnter={e => {
+                      (e.currentTarget as HTMLElement).style.backgroundColor = cfg.iconColor;
+                      (e.currentTarget as HTMLElement).style.color = "#1D1D1B";
+                    }}
+                    onMouseLeave={e => {
+                      (e.currentTarget as HTMLElement).style.backgroundColor = `${cfg.iconColor}08`;
+                      (e.currentTarget as HTMLElement).style.color = cfg.iconColor;
+                    }}
+                  >
+                    {locale === "ar" ? "اطلب عرضاً" : "Demander un devis"}
+                  </Link>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* ── CTA Banner ─────────────────────────────────────────────────────── */}
       <section className="relative py-32 overflow-hidden bg-[#1D1D1B] border-t border-white/[0.06]">
         <div
@@ -286,10 +431,10 @@ export default function ServicesContent() {
           </p>
           <Link
             href="/contact"
-            className="inline-flex items-center gap-3 bg-[#F8A700] hover:bg-[#D48F00] text-[#1D1D1B] font-extrabold px-10 py-5 rounded-full text-base transition-all duration-200 hover:scale-105 shadow-glow-solar"
+            className="group inline-flex items-center gap-3 bg-[#F8A700] hover:bg-[#D48F00] text-[#1D1D1B] font-extrabold px-10 py-5 rounded-full text-base transition-all duration-200 hover:scale-105 shadow-glow-solar"
           >
             {t("learnMore")}
-            <svg className={`w-5 h-5 ${isRTL ? "rotate-180" : ""}`} fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
+            <svg className={`w-5 h-5 transition-transform duration-300 group-hover:translate-x-2 ${isRTL ? "rotate-180 group-hover:-translate-x-2 group-hover:translate-x-0" : ""}`} fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
               <path d="M5 12h14M12 5l7 7-7 7" />
             </svg>
           </Link>

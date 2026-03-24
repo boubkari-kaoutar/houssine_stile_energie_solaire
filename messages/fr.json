@@ -22,19 +22,24 @@
     "stat3": "Années d'expérience"
   },
   "about": {
-    "badge": "Qui sommes-nous",
-    "title": "Des pionniers de l'énergie propre au Maroc",
-    "description": "Fondée par des passionnés d'énergie renouvelable, Sunset Energy accompagne particuliers et entreprises dans leur transition vers l'autonomie énergétique. Notre approche allie rigueur technique, respect de l'environnement et service client irréprochable.",
+    "badge": "Les pionniers de l'énergie solaire au Maroc",
+    "title": "Transformer chaque toit en source d'énergie propre.",
+    "description": "Sunset Energy est née de la passion pour les énergies renouvelables et d'une ambition claire : transformer chaque toit en source d'énergie propre.",
+    "description2": "Nous accompagnons particuliers et entreprises dans leur transition vers l'autonomie énergétique grâce à des solutions solaires sur mesure, alliant excellence technique, innovation et engagement environnemental.",
+    "description3": "Notre approche repose sur une vision durable : concevoir des installations fiables, performantes et adaptées aux réalités du climat marocain, tout en offrant une expérience client fluide et irréprochable.",
     "mission": "Notre mission",
-    "missionDesc": "Rendre l'énergie solaire accessible, fiable et rentable pour chaque foyer et chaque entreprise au Maroc.",
+    "missionDesc": "Rendre l'énergie solaire accessible, performante et rentable pour chaque foyer et chaque entreprise au Maroc, en proposant des solutions durables et adaptées à chaque besoin.",
     "vision": "Notre vision",
-    "visionDesc": "Un Maroc où chaque toit est une source d'énergie propre, indépendante et durable pour les générations futures.",
-    "v1": { "title": "Durabilité", "desc": "Matériaux certifiés, installations conçues pour durer plus de 25 ans." },
-    "v2": { "title": "Innovation", "desc": "Technologies photovoltaïques de dernière génération, adaptées au climat marocain." },
-    "v3": { "title": "Engagement", "desc": "Accompagnement personnalisé de l'étude initiale au suivi post-installation." },
-    "stat1": "Projets réalisés",
-    "stat2": "Clients satisfaits",
-    "stat3": "Réduction moyenne facture"
+    "visionDesc": "Un Maroc où chaque toit devient une source d'énergie propre, contribuant à un avenir indépendant, durable et respectueux de l'environnement pour les générations futures.",
+    "v1": { "title": "Durabilité", "desc": "Des installations conçues pour durer plus de 25 ans, avec des matériaux certifiés et une approche respectueuse de l'environnement." },
+    "v2": { "title": "Innovation", "desc": "Des technologies photovoltaïques de dernière génération, optimisées pour les conditions climatiques du Maroc." },
+    "v3": { "title": "Engagement", "desc": "Un accompagnement personnalisé à chaque étape : de l'étude initiale jusqu'au suivi post-installation." },
+    "stat1": "projets solaires réalisés",
+    "stat2": "de clients satisfaits",
+    "stat3": "d'économies sur la facture",
+    "ctaTitle": "Prêt à passer à l'énergie solaire ?",
+    "ctaDesc": "Notre équipe d'experts vous accompagne de l'étude à la mise en service pour concevoir une solution parfaitement adaptée à votre projet.",
+    "ctaBtn": "Demander une étude gratuite"
   },
   "services": {
     "badge": "Nos expertises",
@@ -135,7 +140,7 @@
     "s5": "Autre"
   },
   "footer": {
-    "tagline": "L'énergie solaire pour un avenir durable. Des solutions sur mesure pour chaque projet.",
+    "tagline": "L'énergie solaire au service d'un avenir durable. Des solutions intelligentes, durables et sur mesure pour chaque projet.",
     "navigation": "Navigation",
     "services": "Services",
     "contact": "Contact",

@@ -84,14 +84,26 @@ export default function ContactContent() {
     <main ref={sectionRef} className={`${isRTL ? "font-cairo" : ""}`}>
 
       {/* ── Hero ── */}
-      <section className="bg-[#1D1D1B] pt-36 pb-20">
-        <div className="max-w-7xl mx-auto px-6">
+      <section className="relative min-h-[60vh] flex items-end pb-20 overflow-hidden bg-[#1D1D1B]">
+        {/* Background image */}
+        <img
+          src="/images/energie_solaire_contact.png"
+          alt=""
+          aria-hidden="true"
+          className="absolute inset-0 w-full h-full object-cover"
+        />
+        {/* Overlays */}
+        <div className="absolute inset-0 bg-[#1D1D1B]/60" />
+        <div className="absolute inset-0"
+          style={{ background: "linear-gradient(to bottom, rgba(29,29,27,0.3) 0%, transparent 40%, rgba(29,29,27,0.95) 100%)" }} />
+
+        <div className="relative z-10 max-w-7xl mx-auto px-6 pt-36 w-full">
           <div className={`contact-reveal max-w-3xl ${isRTL ? "mr-auto text-right" : ""}`}>
             <SectionBadge variant="dark">{t("badge")}</SectionBadge>
-            <h1 className="text-5xl md:text-6xl font-extrabold text-white mt-5 mb-6 leading-tight">
+            <h1 className="text-5xl md:text-7xl font-extrabold text-white mt-5 mb-6 leading-tight tracking-tight">
               {t("title")}
             </h1>
-            <p className="text-gray-400 text-xl leading-relaxed">{t("subtitle")}</p>
+            <p className="text-gray-300 text-xl leading-relaxed">{t("subtitle")}</p>
           </div>
         </div>
       </section>
