@@ -260,7 +260,7 @@ export default function ContactContent() {
                   </div>
                   <div>
                     <p className="text-white/40 text-xs uppercase tracking-widest font-semibold">{t(key)}</p>
-                    <p className="text-white font-bold mt-0.5">{value}</p>
+                    <p className="text-white font-bold mt-0.5" dir="ltr">{value}</p>
                   </div>
                 </div>
               ))}
