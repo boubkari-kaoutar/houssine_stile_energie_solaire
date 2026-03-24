@@ -1,0 +1,148 @@
+{
+  "nav": {
+    "home": "Accueil",
+    "about": "À propos",
+    "services": "Services",
+    "contact": "Contact",
+    "cta": "Devis gratuit"
+  },
+  "hero": {
+    "badge": "Énergie Solaire · Maroc",
+    "headline1": "L'énergie du soleil,",
+    "headline2": "pour votre avenir.",
+    "subheadline": "Sunset Energy conçoit et installe des systèmes solaires sur mesure pour les particuliers et les entreprises. Économisez sur votre facture, préservez l'environnement.",
+    "cta": "Demander un devis",
+    "ctaSecondary": "Découvrir nos services",
+    "trust1": "Garantie 25 ans",
+    "trust2": "Devis gratuit",
+    "trust3": "Installation certifiée",
+    "trust4": "Suivi continu",
+    "stat1": "Installations",
+    "stat2": "Clients satisfaits",
+    "stat3": "Années d'expérience"
+  },
+  "about": {
+    "badge": "Qui sommes-nous",
+    "title": "Des pionniers de l'énergie propre au Maroc",
+    "description": "Fondée par des passionnés d'énergie renouvelable, Sunset Energy accompagne particuliers et entreprises dans leur transition vers l'autonomie énergétique. Notre approche allie rigueur technique, respect de l'environnement et service client irréprochable.",
+    "mission": "Notre mission",
+    "missionDesc": "Rendre l'énergie solaire accessible, fiable et rentable pour chaque foyer et chaque entreprise au Maroc.",
+    "vision": "Notre vision",
+    "visionDesc": "Un Maroc où chaque toit est une source d'énergie propre, indépendante et durable pour les générations futures.",
+    "v1": { "title": "Durabilité", "desc": "Matériaux certifiés, installations conçues pour durer plus de 25 ans." },
+    "v2": { "title": "Innovation", "desc": "Technologies photovoltaïques de dernière génération, adaptées au climat marocain." },
+    "v3": { "title": "Engagement", "desc": "Accompagnement personnalisé de l'étude initiale au suivi post-installation." },
+    "stat1": "Projets réalisés",
+    "stat2": "Clients satisfaits",
+    "stat3": "Réduction moyenne facture"
+  },
+  "services": {
+    "badge": "Nos expertises",
+    "title": "Des solutions solaires complètes",
+    "subtitle": "De l'audit initial à la maintenance continue, nous couvrons l'intégralité de votre projet solaire.",
+    "solar": {
+      "tagline": "Votre toit, notre expertise.",
+      "title": "Installation de panneaux solaires",
+      "desc": "Installation professionnelle de systèmes photovoltaïques sur mesure, adaptés à votre toiture et à votre consommation. De l'étude technique à la mise en service.",
+      "features": ["Étude de faisabilité gratuite", "Panneaux haute performance", "Installation certifiée"]
+    },
+    "audit": {
+      "tagline": "Comprenez avant d'investir.",
+      "title": "Audit énergétique",
+      "desc": "Analyse complète de votre consommation énergétique pour identifier les meilleures opportunités d'économies. Rapport détaillé et plan d'action personnalisé.",
+      "features": ["Diagnostic complet", "Simulation de rentabilité", "Rapport détaillé"]
+    },
+    "maintenance": {
+      "tagline": "Une performance maximale, chaque jour.",
+      "title": "Maintenance et suivi",
+      "desc": "Contrats de maintenance préventive, monitoring en temps réel et interventions rapides pour garantir la performance optimale de votre installation.",
+      "features": ["Monitoring en temps réel", "Nettoyage régulier", "Intervention sous 24h"]
+    },
+    "conseil": {
+      "tagline": "Un futur énergétique pensé pour vous.",
+      "title": "Conseil en habitat écologique",
+      "desc": "Accompagnement expert pour optimiser l'efficacité énergétique de votre habitat. Isolation, stockage, subventions — nous vous guidons de A à Z.",
+      "features": ["Optimisation thermique", "Systèmes de stockage", "Aide aux subventions"]
+    },
+    "learnMore": "En savoir plus"
+  },
+  "whyUs": {
+    "badge": "Nos avantages",
+    "title": "Pourquoi choisir Sunset Energy ?",
+    "subtitle": "Notre engagement va au-delà de l'installation. Nous construisons des partenariats durables.",
+    "a1": { "title": "Économies garanties", "desc": "Réduisez votre facture d'électricité jusqu'à 70% grâce à nos solutions optimisées." },
+    "a2": { "title": "Respect de l'environnement", "desc": "Chaque installation contribue directement à la réduction des émissions de CO2." },
+    "a3": { "title": "Expertise certifiée", "desc": "Nos techniciens sont certifiés et formés aux dernières technologies solaires." },
+    "a4": { "title": "Solutions sur mesure", "desc": "Chaque projet est unique. Nous concevons des solutions adaptées à vos besoins réels." },
+    "guarantee": "Garantie produit",
+    "roi": "Retour sur investissement"
+  },
+  "testimonials": {
+    "badge": "Témoignages",
+    "title": "Ce que disent nos clients",
+    "subtitle": "Plus de 500 familles et entreprises nous font confiance.",
+    "t1": {
+      "name": "Karim Alaoui",
+      "role": "Particulier, Casablanca",
+      "text": "Installation impeccable. En 6 mois, ma facture d'électricité a été réduite de 65%. L'équipe Sunset Energy est professionnelle, réactive et transparente. Je recommande sans hésitation."
+    },
+    "t2": {
+      "name": "Sara Benali",
+      "role": "Directrice, PME Marrakech",
+      "text": "Notre entreprise économise plus de 40 000 DH par an. Le retour sur investissement est bien plus rapide que prévu. Un suivi exemplaire depuis l'installation."
+    },
+    "t3": {
+      "name": "Youssef Ouhbi",
+      "role": "Particulier, Rabat",
+      "text": "Du premier contact à la mise en service, tout s'est déroulé parfaitement. L'audit énergétique était très complet et les conseils parfaitement adaptés à notre situation."
+    }
+  },
+  "cta": {
+    "badge": "Passez à l'action",
+    "title1": "Votre énergie solaire",
+    "title2": "commence aujourd'hui.",
+    "subtitle": "Devis gratuit, réponse sous 24h. Rejoignez les 500+ clients qui ont réduit leur facture.",
+    "button": "Demander un devis gratuit",
+    "whatsapp": "Contacter sur WhatsApp"
+  },
+  "contact": {
+    "badge": "Nous joindre",
+    "title": "Parlons de votre projet",
+    "subtitle": "Vous avez un projet ou une question ? Notre équipe est disponible pour vous accompagner.",
+    "address": "Adresse",
+    "addressValue": "123 Avenue Solaire, Casablanca",
+    "phone": "Téléphone",
+    "phoneValue": "+212 5 22 XX XX XX",
+    "email": "Email",
+    "emailValue": "contact@sunset-energy.ma",
+    "hours": "Horaires",
+    "hoursValue": "Lun – Sam : 8h00 – 18h00",
+    "formName": "Prénom",
+    "formLastname": "Nom",
+    "formEmail": "Email",
+    "formPhone": "Téléphone",
+    "formService": "Service souhaité",
+    "formServiceDefault": "Choisir un service",
+    "formMessage": "Message",
+    "formMessagePlaceholder": "Décrivez votre projet...",
+    "formSubmit": "Envoyer ma demande",
+    "formSuccess": "Votre message a été envoyé. Nous vous répondrons dans les 24h.",
+    "whatsapp": "Contacter via WhatsApp",
+    "s1": "Installation de panneaux solaires",
+    "s2": "Audit énergétique",
+    "s3": "Maintenance et suivi",
+    "s4": "Conseil en habitat écologique",
+    "s5": "Autre"
+  },
+  "footer": {
+    "tagline": "L'énergie solaire pour un avenir durable. Des solutions sur mesure pour chaque projet.",
+    "navigation": "Navigation",
+    "services": "Services",
+    "contact": "Contact",
+    "rights": "Tous droits réservés.",
+    "madeWith": "Fait avec passion pour un futur durable"
+  },
+  "whatsapp": {
+    "tooltip": "Discutons sur WhatsApp"
+  }
+}
