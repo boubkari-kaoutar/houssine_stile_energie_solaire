@@ -12,6 +12,14 @@ export default function Navbar() {
   const pathname = usePathname();
   const router = useRouter();
   const isRTL = locale === "ar";
+  
+  const PHONE = "212661780430";
+  const waMessage = encodeURIComponent(
+    locale === "ar"
+      ? "مرحباً، أود الحصول على عرض سعر مجاني لمشروع طاقة شمسية."
+      : "Bonjour, je souhaite obtenir un devis gratuit pour un projet d'énergie solaire."
+  );
+  const waLink = `https://wa.me/${PHONE}?text=${waMessage}`;
 
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -84,7 +92,7 @@ export default function Navbar() {
 
         {/* Desktop links */}
         <ul
-          className={`hidden md:flex items-center gap-8 ${isRTL ? "flex-row-reverse" : ""}`}
+          className="hidden md:flex items-center gap-8"
         >
           {links.map((l) => (
             <li key={l.href}>
@@ -105,7 +113,7 @@ export default function Navbar() {
         </ul>
 
         {/* Right actions */}
-        <div className={`hidden md:flex items-center gap-3 ${isRTL ? "flex-row-reverse" : ""}`}>
+        <div className="hidden md:flex items-center gap-3">
           {/* Language switcher */}
           <div className={`flex items-center rounded-full p-1 gap-1 ${scrolled ? "bg-gray-100" : "bg-white/10"}`}>
             <button
@@ -131,12 +139,14 @@ export default function Navbar() {
           </div>
 
           {/* CTA */}
-          <Link
-            href="/contact"
+          <a
+            href={waLink}
+            target="_blank"
+            rel="noopener noreferrer"
             className="bg-[#F8A700] hover:bg-[#D48F00] text-[#1D1D1B] font-bold px-5 py-2.5 rounded-full text-sm transition-all duration-200 hover:scale-105 shadow-sm"
           >
             {t("cta")}
-          </Link>
+          </a>
         </div>
 
         {/* Hamburger */}
@@ -201,13 +211,15 @@ export default function Navbar() {
                 AR
               </button>
             </div>
-            <Link
-              href="/contact"
+            <a
+              href={waLink}
+              target="_blank"
+              rel="noopener noreferrer"
               onClick={() => setMobileOpen(false)}
               className="bg-[#F8A700] text-[#1D1D1B] font-bold px-5 py-2 rounded-full text-sm"
             >
               {t("cta")}
-            </Link>
+            </a>
           </li>
         </ul>
       </div>
