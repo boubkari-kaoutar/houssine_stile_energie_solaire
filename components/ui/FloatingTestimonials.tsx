@@ -54,10 +54,12 @@ export default function FloatingTestimonials({ titleClass = "" }: { titleClass?:
         @keyframes float-1 { 0%,100%{transform:rotate(-4deg) translateY(0px)} 50%{transform:rotate(-3deg) translateY(-14px)} }
         @keyframes float-2 { 0%,100%{transform:rotate(2deg) translateY(0px)}  50%{transform:rotate(3deg) translateY(-18px)} }
         @keyframes float-3 { 0%,100%{transform:rotate(-2deg) translateY(0px)} 50%{transform:rotate(-1deg) translateY(-10px)} }
-        .card-float-1{animation:float-1 5s ease-in-out infinite}
-        .card-float-2{animation:float-2 6.5s ease-in-out infinite}
-        .card-float-3{animation:float-3 4.8s ease-in-out infinite}
-        .card-float-1:hover,.card-float-2:hover,.card-float-3:hover{animation-play-state:paused;transform:rotate(0deg) scale(1.05)!important}
+        @media(min-width:768px){
+          .card-float-1{animation:float-1 5s ease-in-out infinite}
+          .card-float-2{animation:float-2 6.5s ease-in-out infinite}
+          .card-float-3{animation:float-3 4.8s ease-in-out infinite}
+          .card-float-1:hover,.card-float-2:hover,.card-float-3:hover{animation-play-state:paused;transform:rotate(0deg) scale(1.05)!important}
+        }
       `}</style>
 
       <section ref={sectionRef} className="relative py-32 overflow-hidden border-t border-white/[0.06]"
@@ -94,14 +96,39 @@ export default function FloatingTestimonials({ titleClass = "" }: { titleClass?:
             </h2>
           </div>
 
-          {/* Floating cards */}
-          <div className="relative flex flex-col md:flex-row items-center justify-center gap-8 md:gap-0 md:h-[440px]">
+          {/* Mobile: horizontal scroll carousel / Desktop: floating absolute */}
+          <div className="md:hidden flex gap-4 overflow-x-auto pb-4 snap-x snap-mandatory scrollbar-none -mx-6 px-6">
             {items.map((item, i) => {
               const s = CARD_STYLES[i];
               return (
                 <div key={i}
-                  className={`${s.floatClass} ${titleClass} relative w-full md:w-[300px] md:absolute rounded-2xl p-7 cursor-default transition-transform duration-300`}
-                  style={{ background: s.bg, border: `1px solid ${s.border}`, left: s.left, zIndex: s.zIndex, boxShadow: "0 25px 70px rgba(0,0,0,0.5), 0 4px 20px rgba(0,0,0,0.3)", animationDelay: s.delay }}
+                  className="snap-center flex-shrink-0 w-[80vw] max-w-[320px] rounded-2xl p-6 cursor-default"
+                  style={{ background: s.bg, border: `1px solid ${s.border}`, boxShadow: "0 25px 70px rgba(0,0,0,0.5)" }}
+                >
+                  <span className="text-white/20 text-xs font-bold tracking-widest mb-5 block">({String(i + 1).padStart(2, "0")})</span>
+                  <div className="flex gap-1 mb-4">
+                    {Array(item.stars).fill(0).map((_, s) => (
+                      <svg key={s} width="13" height="13" fill="#F8A700" viewBox="0 0 24 24">
+                        <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
+                      </svg>
+                    ))}
+                  </div>
+                  <p className={`text-gray-300 text-sm leading-[1.8] mb-6 ${isRTL ? "text-right font-cairo" : ""}`}>{item.text}</p>
+                  <div className="w-8 h-px bg-white/15 mb-4" />
+                  <p className={`text-white/35 text-xs italic ${isRTL ? "text-right" : ""}`}>— {item.name}, {item.role}</p>
+                </div>
+              );
+            })}
+          </div>
+
+          {/* Desktop: floating absolute */}
+          <div className="hidden md:block relative w-full h-[440px]">
+            {items.map((item, i) => {
+              const s = CARD_STYLES[i];
+              return (
+                <div key={i}
+                  className={`${s.floatClass} ${titleClass} absolute w-[300px] rounded-2xl p-7 cursor-default transition-transform duration-300`}
+                  style={{ background: s.bg, border: `1px solid ${s.border}`, left: s.left, top: "50%", transform: "translateY(-50%)", zIndex: s.zIndex, boxShadow: "0 25px 70px rgba(0,0,0,0.5), 0 4px 20px rgba(0,0,0,0.3)", animationDelay: s.delay }}
                 >
                   <span className="text-white/20 text-xs font-bold tracking-widest mb-5 block">
                     ({String(i + 1).padStart(2, "0")})
