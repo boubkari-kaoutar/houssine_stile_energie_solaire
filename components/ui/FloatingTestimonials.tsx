@@ -5,14 +5,14 @@ import { useLocale } from "next-intl";
 
 const TESTIMONIALS = {
   fr: [
-    { name: "Karim Alaoui",  role: "Particulier, Casablanca",  stars: 5, text: "Installation impeccable. En 6 mois, ma facture a été réduite de 65%. L'équipe Sunset Energy est professionnelle et réactive." },
-    { name: "Sara Benali",   role: "Directrice, PME Marrakech", stars: 5, text: "Notre entreprise économise plus de 40 000 DH par an. Le retour sur investissement est bien plus rapide que prévu." },
-    { name: "Youssef Ouhbi", role: "Particulier, Rabat",        stars: 5, text: "Du premier contact à la mise en service, tout s'est déroulé parfaitement. L'audit énergétique était très complet." },
+    { name: "Karim Alaoui",  initials: "KA", avatarColor: "#F8A700", role: "Particulier, Casablanca",  stars: 5, text: "Installation impeccable. En 6 mois, ma facture a été réduite de 65%. L'équipe Sunset Energy est professionnelle et réactive." },
+    { name: "Sara Benali",   initials: "SB", avatarColor: "#17A73D", role: "Directrice, PME Marrakech", stars: 5, text: "Notre entreprise économise plus de 40 000 DH par an. Le retour sur investissement est bien plus rapide que prévu." },
+    { name: "Youssef Ouhbi", initials: "YO", avatarColor: "#8899FF", role: "Particulier, Rabat",        stars: 5, text: "Du premier contact à la mise en service, tout s'est déroulé parfaitement. L'audit énergétique était très complet." },
   ],
   ar: [
-    { name: "كريم العلوي",  role: "فرد، الدار البيضاء",        stars: 5, text: "تركيب لا تشوبه شائبة. خلال 6 أشهر، انخفضت فاتورة الكهرباء بنسبة 65%. فريق صنست إنرجي محترف وسريع الاستجابة." },
-    { name: "سارة بنعلي",   role: "مديرة، مؤسسة صغيرة بمراكش", stars: 5, text: "شركتنا توفر أكثر من 40,000 درهم سنوياً. العائد على الاستثمار أسرع مما توقعنا." },
-    { name: "يوسف أوهبي",  role: "فرد، الرباط",                stars: 5, text: "من أول اتصال حتى التشغيل، سار كل شيء بشكل مثالي. التدقيق الطاقي كان شاملاً." },
+    { name: "كريم العلوي",  initials: "ك",  avatarColor: "#F8A700", role: "فرد، الدار البيضاء",         stars: 5, text: "تركيب لا تشوبه شائبة. خلال 6 أشهر، انخفضت فاتورة الكهرباء بنسبة 65%. فريق صنست إنرجي محترف وسريع الاستجابة." },
+    { name: "سارة بنعلي",   initials: "س",  avatarColor: "#17A73D", role: "مديرة، مؤسسة صغيرة بمراكش", stars: 5, text: "شركتنا توفر أكثر من 40,000 درهم سنوياً. العائد على الاستثمار أسرع مما توقعنا." },
+    { name: "يوسف أوهبي",  initials: "ي",  avatarColor: "#8899FF", role: "فرد، الرباط",                stars: 5, text: "من أول اتصال حتى التشغيل، سار كل شيء بشكل مثالي. التدقيق الطاقي كان شاملاً." },
   ],
 };
 
@@ -22,10 +22,39 @@ const CARD_STYLES = [
   { floatClass: "card-float-3", delay: "0.6s", left: "64%", zIndex: 10, bg: "linear-gradient(145deg, #22211f, #1c1c1a)", border: "rgba(248,167,0,0.08)"  },
 ];
 
+function Avatar({ initials, color, size = 40 }: { initials: string; color: string; size?: number }) {
+  return (
+    <div
+      className="flex items-center justify-center rounded-full flex-shrink-0 font-bold"
+      style={{
+        width: size, height: size,
+        background: `${color}22`,
+        border: `2px solid ${color}55`,
+        color,
+        fontSize: size * 0.38,
+      }}
+    >
+      {initials}
+    </div>
+  );
+}
+
+function Stars({ count }: { count: number }) {
+  return (
+    <div className="flex gap-1">
+      {Array(count).fill(0).map((_, i) => (
+        <svg key={i} width="13" height="13" fill="#F8A700" viewBox="0 0 24 24">
+          <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
+        </svg>
+      ))}
+    </div>
+  );
+}
+
 export default function FloatingTestimonials({ titleClass = "" }: { titleClass?: string }) {
-  const locale    = useLocale();
-  const isRTL     = locale === "ar";
-  const items     = locale === "ar" ? TESTIMONIALS.ar : TESTIMONIALS.fr;
+  const locale     = useLocale();
+  const isRTL      = locale === "ar";
+  const items      = locale === "ar" ? TESTIMONIALS.ar : TESTIMONIALS.fr;
   const sectionRef = useRef<HTMLElement>(null);
   const glowRef    = useRef<HTMLDivElement>(null);
 
@@ -96,33 +125,31 @@ export default function FloatingTestimonials({ titleClass = "" }: { titleClass?:
             </h2>
           </div>
 
-          {/* Mobile: horizontal scroll carousel / Desktop: floating absolute */}
+          {/* ── Mobile: horizontal scroll carousel ── */}
           <div className="md:hidden flex gap-4 overflow-x-auto pb-4 snap-x snap-mandatory scrollbar-none -mx-6 px-6">
             {items.map((item, i) => {
               const s = CARD_STYLES[i];
               return (
                 <div key={i}
-                  className="snap-center flex-shrink-0 w-[80vw] max-w-[320px] rounded-2xl p-6 cursor-default"
+                  className="snap-center flex-shrink-0 w-[80vw] max-w-[320px] rounded-2xl p-6 cursor-default flex flex-col"
                   style={{ background: s.bg, border: `1px solid ${s.border}`, boxShadow: "0 25px 70px rgba(0,0,0,0.5)" }}
                 >
-                  <span className="text-white/20 text-xs font-bold tracking-widest mb-5 block">({String(i + 1).padStart(2, "0")})</span>
-                  <div className="flex gap-1 mb-4">
-                    {Array(item.stars).fill(0).map((_, s) => (
-                      <svg key={s} width="13" height="13" fill="#F8A700" viewBox="0 0 24 24">
-                        <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
-                      </svg>
-                    ))}
+                  <div className={`flex items-center gap-3 mb-4 ${isRTL ? "flex-row-reverse" : ""}`}>
+                    <Avatar initials={item.initials} color={item.avatarColor} size={44} />
+                    <div className={isRTL ? "text-right" : ""}>
+                      <p className="text-white text-sm font-semibold leading-tight">{item.name}</p>
+                      <p className="text-white/40 text-xs mt-0.5">{item.role}</p>
+                    </div>
                   </div>
-                  <p className={`text-gray-300 text-sm leading-[1.8] mb-6 ${isRTL ? "text-right font-cairo" : ""}`}>{item.text}</p>
-                  <div className="w-8 h-px bg-white/15 mb-4" />
-                  <p className={`text-white/35 text-xs italic ${isRTL ? "text-right" : ""}`}>— {item.name}, {item.role}</p>
+                  <Stars count={item.stars} />
+                  <p className={`text-gray-300 text-sm leading-[1.8] mt-4 flex-1 ${isRTL ? "text-right font-cairo" : ""}`}>{item.text}</p>
                 </div>
               );
             })}
           </div>
 
-          {/* Desktop: floating absolute */}
-          <div className="hidden md:block relative w-full h-[440px]">
+          {/* ── Desktop: floating absolute ── */}
+          <div className="hidden md:block relative w-full h-[460px]">
             {items.map((item, i) => {
               const s = CARD_STYLES[i];
               return (
@@ -133,16 +160,16 @@ export default function FloatingTestimonials({ titleClass = "" }: { titleClass?:
                   <span className="text-white/20 text-xs font-bold tracking-widest mb-5 block">
                     ({String(i + 1).padStart(2, "0")})
                   </span>
-                  <div className="flex gap-1 mb-4">
-                    {Array(item.stars).fill(0).map((_, s) => (
-                      <svg key={s} width="13" height="13" fill="#F8A700" viewBox="0 0 24 24">
-                        <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
-                      </svg>
-                    ))}
+                  <Stars count={item.stars} />
+                  <p className={`text-gray-300 text-sm leading-[1.8] my-5 ${isRTL ? "text-right font-cairo" : ""}`}>{item.text}</p>
+                  <div className="w-full h-px bg-white/[0.07] mb-5" />
+                  <div className={`flex items-center gap-3 ${isRTL ? "flex-row-reverse" : ""}`}>
+                    <Avatar initials={item.initials} color={item.avatarColor} size={38} />
+                    <div className={isRTL ? "text-right" : ""}>
+                      <p className="text-white text-sm font-semibold leading-tight">{item.name}</p>
+                      <p className="text-white/40 text-xs mt-0.5">{item.role}</p>
+                    </div>
                   </div>
-                  <p className={`text-gray-300 text-sm leading-[1.8] mb-6 ${isRTL ? "text-right font-cairo" : ""}`}>{item.text}</p>
-                  <div className="w-8 h-px bg-white/15 mb-4" />
-                  <p className={`text-white/35 text-xs italic ${isRTL ? "text-right" : ""}`}>— {item.name}, {item.role}</p>
                 </div>
               );
             })}
