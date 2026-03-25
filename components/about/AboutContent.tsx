@@ -341,7 +341,7 @@ export default function AboutContent() {
       {/* ── 1. HERO — titre + mini stats ──────────────────────────────────── */}
       <section className="relative min-h-screen flex flex-col justify-end pb-16 overflow-hidden bg-[#1D1D1B]">
         <img
-          src="/images/energie_solaire_contact.png"
+          src="/images/energie_solaire_contact.webp"
           alt=""
           className="absolute inset-0 w-full h-full object-cover scale-[1.25] origin-center"
           aria-hidden="true"
