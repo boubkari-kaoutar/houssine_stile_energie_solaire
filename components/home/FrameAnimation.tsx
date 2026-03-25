@@ -34,7 +34,7 @@ export default function FrameAnimation() {
         >
           {/* Logo */}
           <div className="relative" style={{ animation: "sunPulse 2s ease-in-out infinite" }}>
-            <Image src="/logo.png" alt="Sunset Energy" width={140} height={56} className="object-contain" priority />
+            <Image src="/images/LOGO-PNG.png" alt="Sunset Energy" width={140} height={56} className="object-contain" priority />
           </div>
 
           {/* Tagline */}
