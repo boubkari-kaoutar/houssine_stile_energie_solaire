@@ -36,7 +36,7 @@ export default function ServicesContent() {
 
       {/* ── Hero with video bg ─────────────────────────────────────────────── */}
       <section className="relative min-h-[65vh] flex items-end pb-24 overflow-hidden bg-[#1D1D1B]">
-        <video autoPlay muted loop playsInline suppressHydrationWarning
+        <video autoPlay muted loop playsInline preload="none" suppressHydrationWarning
           className="absolute inset-0 w-full h-full object-cover">
           <source src="/videos/video.mp4" type="video/mp4" />
         </video>

@@ -3,11 +3,13 @@
 import { useEffect, useRef, useState, useCallback } from "react";
 
 // ─── Constants ────────────────────────────────────────────────────────────────
-export const TOTAL_FRAMES = 192;
+export const TOTAL_FRAMES = 64;
 
-/** Zero-padded frame path: 1 → /frames/ezgif-frame-001.png */
-export const framePath = (index: number): string =>
-  `/frames/ezgif-frame-${String(index).padStart(3, "0")}.png`;
+/** Zero-padded frame path: takes every 3rd frame (1,4,7...190) for 3× smaller download */
+export const framePath = (index: number): string => {
+  const fileNum = (index - 1) * 3 + 1;
+  return `/frames/ezgif-frame-${String(fileNum).padStart(3, "0")}.png`;
+};
 
 // ─── Easing helpers ───────────────────────────────────────────────────────────
 
@@ -196,9 +198,9 @@ export function useFrameSequence(): FrameSequenceState & FrameSequenceRefs {
       }, delay);
     };
 
-    loadBatch(1,  10,   0);   // Critical — load immediately
-    loadBatch(11, 60,  50);   // High priority — tiny delay
-    loadBatch(61, 192, 150);  // Background — slight delay
+    loadBatch(1,  8,   0);   // Critical — load immediately
+    loadBatch(9,  30,  50);  // High priority — tiny delay
+    loadBatch(31, 64,  150); // Background — slight delay
 
     return () => {
       // Abort pending loads by clearing src

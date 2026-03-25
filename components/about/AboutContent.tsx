@@ -87,7 +87,7 @@ function MissionVisionScroll({
     <div className="sticky top-0 h-screen relative overflow-hidden bg-[#1D1D1B]">
       {/* Video background */}
       <video
-        autoPlay muted loop playsInline suppressHydrationWarning
+        autoPlay muted loop playsInline preload="none" suppressHydrationWarning
         className="absolute inset-0 w-full h-full object-cover"
       >
         <source src="/videos/mission_vision.mp4" type="video/mp4" />

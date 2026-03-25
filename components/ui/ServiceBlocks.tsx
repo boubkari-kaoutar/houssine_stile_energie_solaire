@@ -214,6 +214,7 @@ export default function ServiceBlocks() {
                     muted
                     loop
                     playsInline
+                    preload="none"
                     suppressHydrationWarning
                     className="w-full aspect-video object-cover block scale-[1.18] origin-top"
                   >
