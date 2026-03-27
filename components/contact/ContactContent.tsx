@@ -123,8 +123,10 @@ export default function ContactContent() {
       gsap.utils.toArray<HTMLElement>(".contact-reveal").forEach((el) => {
         gsap.fromTo(el,
           { y: 35, opacity: 0 },
-          { y: 0, opacity: 1, duration: 0.7, ease: "power2.out",
-            scrollTrigger: { trigger: el, start: "top 82%" } }
+          {
+            y: 0, opacity: 1, duration: 0.7, ease: "power2.out",
+            scrollTrigger: { trigger: el, start: "top 82%" }
+          }
         );
       });
     }, mainRef);
@@ -396,8 +398,10 @@ export default function ContactContent() {
                   <span className="font-bold text-white text-base">{faq.q}</span>
                   <span
                     className="w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0 transition-all duration-300"
-                    style={{ backgroundColor: openFaq === i ? "rgba(248,167,0,0.15)" : "rgba(255,255,255,0.05)",
-                      color: openFaq === i ? "#F8A700" : "rgba(255,255,255,0.4)" }}
+                    style={{
+                      backgroundColor: openFaq === i ? "rgba(248,167,0,0.15)" : "rgba(255,255,255,0.05)",
+                      color: openFaq === i ? "#F8A700" : "rgba(255,255,255,0.4)"
+                    }}
                   >
                     <svg width="14" height="14" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24"
                       style={{ transform: openFaq === i ? "rotate(180deg)" : "rotate(0deg)", transition: "transform 0.3s ease" }}>

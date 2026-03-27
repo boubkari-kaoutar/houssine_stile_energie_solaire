@@ -2,9 +2,9 @@
 
 /* ─── Brand color tokens (Tailwind v4) ─── */
 @theme {
-  --color-solar:       #F8A700;
-  --color-solar-light: #FFF3CC;
-  --color-solar-dark:  #D48F00;
+  --color-solar:       #17A73D;
+  --color-solar-light: #E8F5E9;
+  --color-solar-dark:  #128a31;
   --color-brand-dark:  #1D1D1B;
   --color-green:       #17A73D;
   --color-green-light: #E8F5E9;

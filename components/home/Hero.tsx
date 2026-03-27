@@ -175,11 +175,6 @@ export default function Hero() {
             className="absolute inset-0 flex flex-col items-center justify-center px-6 text-center pt-20"
             style={{ transition: "opacity 0.1s, transform 0.1s" }}
           >
-            <div className="hero-line inline-flex items-center gap-2 bg-white/[0.07] border border-white/10 px-4 py-1.5 rounded-full mb-6">
-              <span className="w-1.5 h-1.5 rounded-full bg-[#F8A700] animate-pulse" />
-              <span className="text-white/60 text-xs uppercase tracking-[0.25em] font-semibold">{t("badge")}</span>
-            </div>
-
             <h1 className="max-w-4xl mx-auto font-extrabold leading-[1.05] mb-6"
               style={{ fontSize: "clamp(2rem, 5vw, 3.8rem)" }}>
               <span className="hero-line block text-white">{t("headline1")}</span>

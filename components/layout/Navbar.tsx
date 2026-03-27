@@ -12,7 +12,7 @@ export default function Navbar() {
   const pathname = usePathname();
   const router = useRouter();
   const isRTL = locale === "ar";
-  
+
   const PHONE = "212661780430";
   const waMessage = encodeURIComponent(
     locale === "ar"
@@ -70,11 +70,10 @@ export default function Navbar() {
   return (
     <header
       ref={navRef}
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        scrolled
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${scrolled
           ? "bg-white/95 backdrop-blur-md shadow-sm py-2"
           : "bg-[#1D1D1B]/60 backdrop-blur-sm border-b border-white/5 py-4"
-      }`}
+        }`}
     >
       <nav className="max-w-7xl mx-auto px-6 flex items-center justify-between gap-8">
 
@@ -98,13 +97,12 @@ export default function Navbar() {
             <li key={l.href}>
               <Link
                 href={l.href}
-                className={`nav-link font-semibold text-[15px] transition-colors duration-200 ${
-                  isActive(l.href)
+                className={`nav-link font-semibold text-[15px] transition-colors duration-200 ${isActive(l.href)
                     ? "text-[#F8A700] active"
                     : scrolled
-                    ? "text-[#1D1D1B] hover:text-[#F8A700]"
-                    : "text-white/90 hover:text-[#F8A700]"
-                }`}
+                      ? "text-[#1D1D1B] hover:text-[#F8A700]"
+                      : "text-white/90 hover:text-[#F8A700]"
+                  }`}
               >
                 {l.label}
               </Link>
@@ -118,21 +116,19 @@ export default function Navbar() {
           <div className={`flex items-center rounded-full p-1 gap-1 ${scrolled ? "bg-gray-100" : "bg-white/10"}`}>
             <button
               onClick={() => switchLocale("fr")}
-              className={`px-3 py-1 rounded-full text-xs font-bold transition-all duration-200 ${
-                locale === "fr"
+              className={`px-3 py-1 rounded-full text-xs font-bold transition-all duration-200 ${locale === "fr"
                   ? "bg-[#F8A700] text-[#1D1D1B] shadow-sm"
                   : scrolled ? "text-gray-500 hover:text-[#1D1D1B]" : "text-white/70 hover:text-white"
-              }`}
+                }`}
             >
               FR
             </button>
             <button
               onClick={() => switchLocale("ar")}
-              className={`px-3 py-1 rounded-full text-xs font-bold transition-all duration-200 ${
-                locale === "ar"
+              className={`px-3 py-1 rounded-full text-xs font-bold transition-all duration-200 ${locale === "ar"
                   ? "bg-[#F8A700] text-[#1D1D1B] shadow-sm"
                   : scrolled ? "text-gray-500 hover:text-[#1D1D1B]" : "text-white/70 hover:text-white"
-              }`}
+                }`}
             >
               AR
             </button>
@@ -156,19 +152,16 @@ export default function Navbar() {
           aria-label="Menu"
         >
           <span
-            className={`block h-[2px] w-6 rounded-full transition-all duration-300 ${
-              scrolled ? "bg-[#1D1D1B]" : "bg-white"
-            } ${mobileOpen ? "rotate-45 translate-y-[7px]" : ""}`}
+            className={`block h-[2px] w-6 rounded-full transition-all duration-300 ${scrolled ? "bg-[#1D1D1B]" : "bg-white"
+              } ${mobileOpen ? "rotate-45 translate-y-[7px]" : ""}`}
           />
           <span
-            className={`block h-[2px] w-6 rounded-full transition-all duration-300 ${
-              scrolled ? "bg-[#1D1D1B]" : "bg-white"
-            } ${mobileOpen ? "opacity-0 scale-x-0" : ""}`}
+            className={`block h-[2px] w-6 rounded-full transition-all duration-300 ${scrolled ? "bg-[#1D1D1B]" : "bg-white"
+              } ${mobileOpen ? "opacity-0 scale-x-0" : ""}`}
           />
           <span
-            className={`block h-[2px] w-6 rounded-full transition-all duration-300 ${
-              scrolled ? "bg-[#1D1D1B]" : "bg-white"
-            } ${mobileOpen ? "-rotate-45 -translate-y-[7px]" : ""}`}
+            className={`block h-[2px] w-6 rounded-full transition-all duration-300 ${scrolled ? "bg-[#1D1D1B]" : "bg-white"
+              } ${mobileOpen ? "-rotate-45 -translate-y-[7px]" : ""}`}
           />
         </button>
       </nav>
@@ -184,9 +177,8 @@ export default function Navbar() {
               <Link
                 href={l.href}
                 onClick={() => setMobileOpen(false)}
-                className={`block font-semibold text-base transition-colors ${
-                  isActive(l.href) ? "text-[#F8A700]" : "text-[#1D1D1B]"
-                }`}
+                className={`block font-semibold text-base transition-colors ${isActive(l.href) ? "text-[#F8A700]" : "text-[#1D1D1B]"
+                  }`}
               >
                 {l.label}
               </Link>
@@ -196,17 +188,15 @@ export default function Navbar() {
             <div className="flex items-center bg-gray-100 rounded-full p-1 gap-1">
               <button
                 onClick={() => { switchLocale("fr"); setMobileOpen(false); }}
-                className={`px-3 py-1 rounded-full text-xs font-bold transition-all ${
-                  locale === "fr" ? "bg-[#F8A700] text-[#1D1D1B]" : "text-gray-500"
-                }`}
+                className={`px-3 py-1 rounded-full text-xs font-bold transition-all ${locale === "fr" ? "bg-[#F8A700] text-[#1D1D1B]" : "text-gray-500"
+                  }`}
               >
                 FR
               </button>
               <button
                 onClick={() => { switchLocale("ar"); setMobileOpen(false); }}
-                className={`px-3 py-1 rounded-full text-xs font-bold transition-all ${
-                  locale === "ar" ? "bg-[#F8A700] text-[#1D1D1B]" : "text-gray-500"
-                }`}
+                className={`px-3 py-1 rounded-full text-xs font-bold transition-all ${locale === "ar" ? "bg-[#F8A700] text-[#1D1D1B]" : "text-gray-500"
+                  }`}
               >
                 AR
               </button>
